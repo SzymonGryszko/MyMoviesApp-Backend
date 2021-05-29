@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-
+using MyMoviesApp.Models;
+using MyMoviesApp.MovieData;
 
 namespace MyMoviesApp
 {
@@ -22,6 +24,12 @@ namespace MyMoviesApp
         {
 
             services.AddControllers();
+
+            services.AddDbContextPool<MovieContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("MovieContextConnectionString")));
+
+            services.AddScoped<IMovieData, SqlMovieData>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyMoviesApp", Version = "v1" });
