@@ -14,13 +14,13 @@ namespace MyMoviesApp.MovieData
         {
             new Movie()
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Title = "Test Movie 1",
                 YearOfProduction = 1999
             },
             new Movie()
             {
-                Id = Guid.NewGuid(),
+                Id = 2,
                 Title = "Test Movie 2",
                 YearOfProduction = 2002
             }
@@ -28,7 +28,7 @@ namespace MyMoviesApp.MovieData
 
         public Movie AddMovie(Movie movie)
         {
-            movie.Id = Guid.NewGuid();
+            movie.Id = 3;
             movies.Add(movie);
             return movie;
         }
@@ -55,7 +55,7 @@ namespace MyMoviesApp.MovieData
             
         }
 
-        public Movie GetMovie(Guid id)
+        public Movie GetMovie(int id)
         {
             return movies.SingleOrDefault(movie => movie.Id == id);
         }
