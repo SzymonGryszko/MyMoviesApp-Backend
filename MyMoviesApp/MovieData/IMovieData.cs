@@ -9,7 +9,7 @@ namespace MyMoviesApp.MovieData
     {
         List<Movie> GetMovies();
 
-        Movie GetMovie(Guid id);
+        Movie GetMovie(int id);
 
         Movie AddMovie(Movie movie);
 

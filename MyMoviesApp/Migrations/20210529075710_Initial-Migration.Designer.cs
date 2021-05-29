@@ -10,7 +10,7 @@ using MyMoviesApp.Models;
 namespace MyMoviesApp.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20210529070738_Initial-Migration")]
+    [Migration("20210529075710_Initial-Migration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,10 @@ namespace MyMoviesApp.Migrations
 
             modelBuilder.Entity("MyMoviesApp.Models.Movie", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Title")
                         .IsRequired()

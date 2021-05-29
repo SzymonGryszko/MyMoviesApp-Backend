@@ -17,10 +17,16 @@ namespace MyMoviesApp.MovieData
 
         public Movie AddMovie(Movie movie)
         {
-            movie.Id = Guid.NewGuid();
-            _movieContext.Movies.Add(movie);
+            
+            var newMovie = _movieContext.Movies.Add(new Movie
+            {
+                Title = movie.Title,
+                YearOfProduction = movie.YearOfProduction
+            });
             _movieContext.SaveChanges();
-            return movie;
+
+            return newMovie.Entity;
+            
         }
 
         public void DeleteMovie(Movie movie)
@@ -42,7 +48,7 @@ namespace MyMoviesApp.MovieData
             return movie;
         }
 
-        public Movie GetMovie(Guid id)
+        public Movie GetMovie(int id)
         {
             var movie = _movieContext.Movies.Find(id);
             return movie;

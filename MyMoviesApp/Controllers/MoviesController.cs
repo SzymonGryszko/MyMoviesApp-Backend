@@ -25,7 +25,7 @@ namespace MyMoviesApp.Controllers
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
-        public IActionResult GetMovie(Guid id)
+        public IActionResult GetMovie(int id)
         {
 
             var movie = _movieData.GetMovie(id);
@@ -44,15 +44,15 @@ namespace MyMoviesApp.Controllers
         public IActionResult AddMovie(Movie movie)
         {
 
-            _movieData.AddMovie(movie);
+            var newMovie = _movieData.AddMovie(movie);
 
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + movie.Id, movie);
+            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + newMovie.Id, newMovie);
 
         }
 
         [HttpDelete]
         [Route("api/[controller]/{id}")]
-        public IActionResult DeleteMovie(Guid id)
+        public IActionResult DeleteMovie(int id)
         {
 
             var movie = _movieData.GetMovie(id);
@@ -69,7 +69,7 @@ namespace MyMoviesApp.Controllers
 
         [HttpPatch]
         [Route("api/[controller]/{id}")]
-        public IActionResult EditMovie(Guid id, Movie movie)
+        public IActionResult EditMovie(int id, Movie movie)
         {
             var existingMovie = _movieData.GetMovie(id);
 
