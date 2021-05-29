@@ -7,7 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MyMoviesApp.Models;
 using MyMoviesApp.MovieData;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +31,12 @@ namespace MyMoviesApp
         {
 
             services.AddControllers();
-            services.AddSingleton<IMovieData, MockMovieData>();
+
+            services.AddDbContextPool<MovieContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("MovieContextConnectionString")));
+
+            services.AddScoped<IMovieData, SqlMovieData>();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyMoviesApp", Version = "v1" });
